@@ -8,29 +8,31 @@
     <title>LIST USERS</title>
 </head>
 <body>
-<div th:align="center">
-    <br/>
-    <br/>
-    <h2>LIST USERS</h2>
-
-    <table border="1" cellpadding="5">
-        <tr>
-            <th>ID</th>
-            <th>NAME</th>
-            <th>LAST_NAME</th>
-            <th>AGE</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.getId()}">id</td>
-            <td th:text="${user.getFirstName()}">firstName</td>
-            <td th:text="${user.getLastName()}">lastName</td>
-            <td th:text="${user.getAge()}">age</td>
-            <td><a th:href="@{/edit/{id}(id=${user.getId()})}">Edit</a></td>
-            <td><a th:href="@{/delete/{id}(id=${user.getId()})}">Delete</a></td>
-        </tr>
-    </table>
+<div th:switch = "${users}">
+    <h2 th:case="null">No users found!</h2>
+    <tab th:case="*">
+        <h2>Users</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Age</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.getId()}">id</td>
+                        <td th:text="${user.getFirstName()}">firstName</td>
+                        <td th:text="${user.getLastName()}">lastName</td>
+                        <td th:text="${user.getAge()}">age</td>
+                        <td><a th:href="@{/edit/{id}(id=${user.getId()})}">Edit</a></td>
+                        <td><a th:href="@{/delete/{id}(id=${user.getId()})}">Delete</a></td>
+                    </tr>
+                </tbody>
+        </table>
+    </tab>
     <br/>
     <br/>
     <h3><a href="new">Add new User</a></h3>
